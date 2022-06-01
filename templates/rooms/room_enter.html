@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ room.title }}{% endblock %}
+
+{% block content %}
+
+    <h2>Enter Room: {{ room.title }}</h2>
+    <p>password for the room</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ formm.as_p }}
+        <button method="submit" class="btn btn-success">Enter</button>
+    </form>
+
+{% endblock %}
