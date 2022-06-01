@@ -35,7 +35,7 @@ class RoomDetailView(DetailView):
 class RoomUpdateView(LoginRequiredMixin, UpdateView):
     model = Room
     fields = ('title', 'creator')
-    template_name = 'rooms/room_edit.html'
+    template_name = 'rooms/room_edit.html'  
 
 class RoomDeleteView(LoginRequiredMixin, DeleteView):
     model = Room
