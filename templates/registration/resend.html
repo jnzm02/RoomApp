@@ -17,9 +17,9 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
               <div class="card bg-dark text-white" style="border-radius: 1rem;">
                 <div class="card-body p-5 text-center">
-      
+
                   <div class="mb-md-5 mt-md-4 pb-5">
-      
+
                     <h2 class="fw-bold mb-2 text-uppercase">ROOM</h2>
 
                     <p class="text-white-50 mb-5">Please enter your login and password!</p>
@@ -34,21 +34,13 @@
                             <div class="form-outline form-white mb-4">
                                 <!-- <label class="form-label" for="typeEmailX">Username</label> -->
                                 <!-- <p>{{form.username}}</p> -->
-                                <input type="text" class="form-control form-control-lg" name="username" value="{{ data.username }}" placeholder="Username" />
+                                <input type="text" class="form-control form-control-lg" name="username" value="{{ data.username }}" placeholder="Enter Username" />
                             </div>
-                            
-                            <div class="form-outline form-white mb-4">
-                                <!-- <label class="form-label" for="typeEmailX">Password</label> -->
-                                <!-- <p>{{ form.password }}</p> -->
-                                <input type="password" name="password1" class="form-control form-control-lg" value="{{ data.password1 }}" placeholder="Password">
-                            </div>
-                            
-                            <button type="submit" class="btn btn-outline-light btn-lg px-5">Log In</button>
+
+                            <button type="submit" class="btn btn-outline-light btn-lg px-5">Re-send</button>
                         </form>
                     </div>
-      
-                    <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-                    
+
 
                     <!-- Need to login via google -->
 
@@ -57,14 +49,14 @@
                       <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
                       <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
                     </div> -->
-      
+
                   </div>
-      
+
                   <div>
                     <p class="mb-0">Don't have an account? <a href="{% url 'signup' %}" class="text-white-50 fw-bold">Sign Up</a>
                     </p>
                   </div>
-      
+
                 </div>
               </div>
             </div>

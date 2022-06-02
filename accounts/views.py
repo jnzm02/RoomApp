@@ -148,3 +148,21 @@ def activate_user(request, uidb64, token):
 
 def signup_success(request):
     return render(request, 'registration/signup_success.html')
+
+
+def resend_email(request):
+    if request.method == 'POST':
+
+        if SpecialUser.objects.filter(username=request.POST['username']).exists():
+            user = SpecialUser.objects.get(username=request.POST['username'])
+
+            if not user.is_email_verified:
+                send_activation_email(user, request)
+
+            else:
+                messages.add_message(request, messages.ERROR, 'The account with this username is already verified')
+                return render(request, 'registration/resend.html')
+        else:
+            messages.add_message(request, messages.ERROR, 'The account with this username does not exist')
+            return render(request, 'registration/resend.html')
+    return render(request, 'registration/resend.html')

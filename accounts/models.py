@@ -13,5 +13,3 @@ class SpecialUser(AbstractUser):
     def __str__(self):
         return self.username
 
-    # username = models.CharField(max_length=150)
-    # email = models.EmailField(max_length=100)

@@ -123,6 +123,15 @@ form {
   margin-bottom: 10%
 }
 
+.message {
+    font-size: 18px;
+    background-color: red;
+    color: white;
+    padding: 10px;
+    border: 1px solid #7209b7;
+    border-radius: 7px;
+}
+
 /*   
   header {
     background-color: #466995;
