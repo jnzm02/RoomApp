@@ -10,7 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
+import sys
+from environs import Env
 from pathlib import Path
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +26,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=5603k7a12+^^l+5$r@=44q7am@f98dr1s@gln+t+(ln-f@&3^'
+SECRET_KEY = env.str("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
+
+ALLOWED_HOSTS = [
+    'localhost', 
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -105,17 +116,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# successful login and logout leads to mainpage
+# successful login and logout leads to 'main' page
 LOGIN_REDIRECT_URL = 'main'
 LOGOUT_REDIRECT_URL = 'main'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-EMAIL_USE_TLS = True
+EMAIL_FROM_USER = os.environ.get('EMAIL_FROM_USER')
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'jussupov.02@gmail.com'
-EMAIL_HOST_PASSWORD = '300404isa'
+EMAIL_HOST_USER = os.environ.get('EMAIL_FROM_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 
 
