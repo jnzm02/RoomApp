@@ -90,7 +90,7 @@ def register(request):
 
             messages.add_message(request, messages.SUCCESS, "We sent you an email to verify your account")
 
-            return redirect('login')
+            return redirect('success')
 
     return render(request, 'registration/signup.html')
 
@@ -144,3 +144,7 @@ def activate_user(request, uidb64, token):
         return redirect(reverse('login'))
 
     return render(request, 'registration/activate-failed.html', {"user": user})
+
+
+def signup_success(request):
+    return render(request, 'registration/signup_success.html')
