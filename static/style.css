@@ -132,6 +132,10 @@ form {
     border-radius: 7px;
 }
 
+.SUCCESS {
+    background-color: lawngreen;
+}
+
 /*   
   header {
     background-color: #466995;

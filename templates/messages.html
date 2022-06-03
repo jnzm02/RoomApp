@@ -6,7 +6,14 @@
 
             {{ message }}
 
+            {% if message.message == "Email is not verified, please check your email inbox" %}
+
+                <a href="{% url 'resend' %}">Resend Email Verification</a>
+
+            {% endif %}
+
         </div>
+
     {% endfor %}
 
 {% endif %}

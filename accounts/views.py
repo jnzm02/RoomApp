@@ -13,6 +13,7 @@ import threading
 
 from .models import SpecialUser
 from .token import generate_token
+from tools.decorators import auth_user_should_not_access
 
 
 # registration confirmation   https://github.com/CryceTruly/django-tutorial-youtube/blob/main/authentication/views.py
@@ -45,7 +46,7 @@ def send_activation_email(user, request):
         EmailThread(email).start()
 
 
-# @auth_user_should_not_access
+@auth_user_should_not_access
 def register(request):
     if request.method == 'POST':
         context = {'has_error': False, 'data': request.POST}
@@ -95,7 +96,7 @@ def register(request):
     return render(request, 'registration/signup.html')
 
 
-# @auth_user_should_not_access
+@auth_user_should_not_access
 def login_user(request):
     if request.method == 'POST':
         context = {'data': request.POST}
@@ -158,6 +159,7 @@ def resend_email(request):
 
             if not user.is_email_verified:
                 send_activation_email(user, request)
+                return render(request, 'signup_success')
 
             else:
                 messages.add_message(request, messages.ERROR, 'The account with this username is already verified')
@@ -165,4 +167,5 @@ def resend_email(request):
         else:
             messages.add_message(request, messages.ERROR, 'The account with this username does not exist')
             return render(request, 'registration/resend.html')
+
     return render(request, 'registration/resend.html')
