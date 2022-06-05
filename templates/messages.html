@@ -1,18 +1,29 @@
-{% if messages %}
+{% if messages and not messages.tags == 'SUCCESS' %}
 
     {% for message in messages %}
 
-        <div class="ui {{ message.tags }} message">
-
-            {{ message }}
+        {% if forloop.first %}
 
             {% if message.message == "Email is not verified, please check your email inbox" %}
 
-                <a href="{% url 'resend' %}">Resend Email Verification</a>
+                <div class="ui {{ message.tags }} message">
+                    {{ message }}
+                </div><br>
+
+                <p class="small mb-5 pb-lg-2 text-white-50" style="font-size: 18px">
+                    In case you lost the verification link
+                    <a href="{% url 'resend' %}" class="text-white-50">Press here.</a>
+                </p>
+
+            {% else %}
+
+                <div class="ui {{ message.tags }} message">
+                    {{ message }}
+                </div>
 
             {% endif %}
 
-        </div>
+        {% endif%}
 
     {% endfor %}
 

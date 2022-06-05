@@ -109,11 +109,12 @@ def login_user(request):
             messages.add_message(request, messages.ERROR, 'Email is not verified, please check your email inbox')
             return render(request, 'registration/login.html', context, status=401)
 
-        if not user:
+        elif not user:
             messages.add_message(request, messages.ERROR, 'Account with this username does not exist, try again')
             return render(request, 'registration/login.html', context, status=401)
 
-        login(request, user)
+        else:
+            login(request, user)
 
         messages.add_message(request, messages.SUCCESS, f'Welcome {user.username}')
         return redirect(reverse('main'))
