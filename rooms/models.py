@@ -13,9 +13,11 @@ class Room(models.Model):
     creator = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE
     )
+
+    # is_private = models.BooleanField(default=False)
+
     # (validators like limiters, the number cannot exceed the given value) we still did not update the total number of
     # people who is the member of the given room, so I just gave the default value till we fix it
-    online_users = models.IntegerField(default=0, validators=[MaxValueValidator(800000000), MinValueValidator(0)])
     number_of_users = models.IntegerField(default=0, validators=[MaxValueValidator(800000000), MinValueValidator(0)])
 
     # we need add to password because Rooms should be private room password is the password which creator created for

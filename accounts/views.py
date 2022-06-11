@@ -13,6 +13,7 @@ import threading
 
 from .models import SpecialUser
 from .token import generate_token
+
 from tools.decorators import auth_user_should_not_access
 
 
@@ -160,7 +161,7 @@ def resend_email(request):
 
             if not user.is_email_verified:
                 send_activation_email(user, request)
-                return render(request, 'signup_success')
+                return render(request, 'registration/signup_success.html')
 
             else:
                 messages.add_message(request, messages.ERROR, 'The account with this username is already verified')
