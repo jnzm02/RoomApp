@@ -1,20 +1,12 @@
-# from attr import fields
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, render
 from django.http import Http404
-
-# one of the possible answers could be done via decorators (not sure, but hope)
-# from tools.decorators import creator_only
 
 # from .forms import RoomEnterForm
 from .models import Room
 
-
-# Create your views here.
-# https://towardsdatascience.com/create-a-django-app-with-login-restricted-pages-31229cc48791
 
 class RoomsListView(ListView):
     model = Room
@@ -23,7 +15,7 @@ class RoomsListView(ListView):
 
 class RoomCreateView(LoginRequiredMixin, CreateView):
     model = Room
-    fields = ('title', 'number_of_users',)
+    fields = ('title',)
     template_name = 'rooms/room_create.html'
     success_url = reverse_lazy('room_list')
 
@@ -48,11 +40,14 @@ class RoomUpdateView(LoginRequiredMixin, UpdateView):
         # it checks if the requesting user is creator of the current Room or superuser
         # in case if he is creator or superuser it allows user to change the Room
 
-        obj = self.get_object()
-        if obj.creator == self.request.user or self.request.user.is_superuser:
+        """https://stackoverflow.com/questions/15424658/how-to-restrict-access-to-certain-user-to-an-updateview"""
+        current_room = self.get_object()
+        if current_room.creator == self.request.user or self.request.user.is_superuser:
             return super(UpdateView, self).dispatch(request, *args, **kwargs)
         else:
             raise Http404("You are not allowed to edit this Room")
+
+    # TODO: Need to add password field for updating(highly recommended)
 
 
 class RoomDeleteView(LoginRequiredMixin, DeleteView):
@@ -64,16 +59,11 @@ class RoomDeleteView(LoginRequiredMixin, DeleteView):
         # it checks if the requesting user is creator of the current Room or superuser
         # in case if he is creator or superuser it allows user to delete the Room
 
-        obj = self.get_object()
-        if obj.creator == self.request.user or self.request.user.is_superuser:
+        current_room = self.get_object()
+        if current_room.creator == self.request.user or self.request.user.is_superuser:
             return super(DeleteView, self).dispatch(request, *args, **kwargs)
         else:
             raise Http404("You are not allowed to delete this Room")
-    # Access only for creator or superuser (not finished, searching for answer, still not found)
-
-    # def form_valid(self, form):
-    #     if self.request.user == form.instance.creator or self.request.user.is_superuser:
-    #         return super().form_valid(form)
 
 
 class RoomEnterView(LoginRequiredMixin, UpdateView):

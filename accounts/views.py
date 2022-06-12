@@ -64,7 +64,7 @@ def register(request):
             messages.add_message(request, messages.ERROR, 'Passwords does not match')
             context['has_error'] = True
 
-        # needs to be fixed with email validator (Nizami's Responsibility)
+        # TODO: needs to be fixed with email validator (Nizami's Responsibility)
 
         # if not validate_email(email):
         #     messages.add_message(request, messages.ERROR, 'Enter a valid email address')
@@ -162,10 +162,10 @@ def resend_email(request):
             if not user.is_email_verified:
                 send_activation_email(user, request)
                 return render(request, 'registration/signup_success.html')
-
             else:
                 messages.add_message(request, messages.ERROR, 'The account with this username is already verified')
                 return render(request, 'registration/resend.html')
+
         else:
             messages.add_message(request, messages.ERROR, 'The account with this username does not exist')
             return render(request, 'registration/resend.html')

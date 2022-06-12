@@ -18,5 +18,10 @@ class SpecialUser(AbstractUser):
     # in the future it is expected that we will have profiles for users (with username, email, bios, and photos)
     # so it is expected that we will update model 'SpecialUser'
 
-    # bio = models.CharField(max_length=1000)
-    # photo = models.ImageField(default='images/blank-profile-picture')
+    # TODO: bio = models.CharField(max_length=1000)
+    bio = models.TextField(default="", max_length=1000)
+
+    # TODO: photo = models.ImageField(default='images/blank-profile-picture')
+    # profile_image = models.ImageField(upload_to='profile_images', default='images/blank-profile-picture')
+    # upload_should to be integrated to media folder 'profile images'
+    # see the video 'https://www.youtube.com/watch?v=xSUm6iMtREA'
