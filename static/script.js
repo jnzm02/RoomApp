@@ -1,1 +1,1 @@
-# The begining of new language (journey)
+// # The beginning of new language (journey)

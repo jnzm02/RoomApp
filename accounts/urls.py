@@ -13,4 +13,6 @@ urlpatterns = [
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
 
+    # SpecialUser Profile
+    path('profile/<str:username>/', views.get_user_profile, name='user_profile'),
 ]

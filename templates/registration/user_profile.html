@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ user.username }} - Rooms
+{% endblock %}
+
+{% block content %}
+    <h2>{{ user.username }}</h2>
+    {% if user.profile_image %}
+        <img class="rounded-circle account-img" src="{{ user.profile_image.url }}" alt="" style="width: 100px; height:100px">
+        <img class="rounded-circle account-img" src="{%  static 'images/blank-profile-picture.png' %}" alt="" style="width: 100px; height:100px">
+        <img src="{%  static 'images/blank-profile-picture.png' %}" alt="" style="width: 100px; height:100px">
+    {% endif %}
+{% endblock %}
