@@ -13,6 +13,9 @@ class Room(models.Model):
     creator = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE
     )
+    is_private = models.BooleanField(default=False)
+
+
 
     # is_private = models.BooleanField(default=False)
 
