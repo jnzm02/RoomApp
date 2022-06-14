@@ -3,14 +3,6 @@
 {% block title %}Log In{% endblock %}
 
 {% block content %}
-    <!-- <div class="log">
-        <h2>Log In</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-success">Log In</button>
-        </form>
-    </div> -->
     <section class="vh-100 gradient-custom">
         <div class="container py-5 h-100">
           <div class="row d-flex justify-content-center align-items-center h-100">
@@ -32,8 +24,6 @@
                         <form method="post" class="">
                             {% csrf_token %}
                             <div class="form-outline form-white mb-4">
-                                <!-- <label class="form-label" for="typeEmailX">Username</label> -->
-                                <!-- <p>{{form.username}}</p> -->
                                 <input type="text" class="form-control form-control-lg" name="username" value="{{ data.username }}" placeholder="Enter Username" />
                             </div>
 

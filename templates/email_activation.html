@@ -1,14 +1,14 @@
-{% autoescape off %}
-
 {% extends "base.html" %}
 
-{% block title %}Email verification{% endblock %}
+{% autoescape off %}
 
-{% block content %}
-    Hi {{ user.username }}
-    Please click on the link to confirm your registration,
-    http://{{ domain }}{% url 'activate' uid64=uid token=token %}
+    {% block title %}Email verification{% endblock %}
 
-{% endblock %}
+    {% block content %}
+        Hi {{ user.username }}
+        Please click on the link to confirm your registration,
+        http://{{ domain }}{% url 'activate' uid64=uid token=token %}
+
+    {% endblock %}
 
 {% endautoescape %}

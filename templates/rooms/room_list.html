@@ -17,7 +17,6 @@
             <span class='list'><a href="{% url 'room_detail' room.pk %}"> {{ room.title }} </a></span>
             <span class="list">{{ room.creator }}</span>
             <span class="list">{{ room.date }}</span>
-            <!-- <span class="list">{{ room.room_password }}</span> -->
             <span class="list">{{ room.online_users }}/{{ room.number_of_users }}</span>
         </div>
     {% endfor %}

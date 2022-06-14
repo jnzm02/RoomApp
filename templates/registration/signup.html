@@ -3,24 +3,20 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-    <!-- <h2>Sign Up</h2> -->
-        <!-- <form method="post">
             {% csrf_token %}
-            {% for field in form %}
-                <p>{{ field.label_tag }} <br>
-                {{ field }}
-                {% if field.help_text %}
-                    <small style="display: none">
-                        {{ field.help_text }}
-                    </small>
-                {% endif %}
-                {% for error in field.errors %}
-                    <p style="color:red ">{{ error }}</p>
-                {% endfor %}
-                </p>
-            {% endfor %}
-            <button type="submit" class="btn btn-success">Sign Up</button>
-        </form> -->
+{#            {% for field in form %}#}
+{#                <p>{{ field.label_tag }} <br>#}
+{#                {{ field }}#}
+{#                {% if field.help_text %}#}
+{#                    <small style="display: none">#}
+{#                        {{ field.help_text }}#}
+{#                    </small>#}
+{#                {% endif %}#}
+{#                {% for error in field.errors %}#}
+{#                    <p style="color:red ">{{ error }}</p>#}
+{#                {% endfor %}#}
+{#            {% endfor %}#}
+{#            <button type="submit" class="btn btn-success">Sign Up</button>#}
         <section class="vh-100 gradient-custom">
             <div class="container py-5 h-100">
               <div class="row d-flex justify-content-center align-items-center h-100">
@@ -42,35 +38,24 @@
                                 {% csrf_token %}
                                 <div class="form-outline form-white mb-4">
                                     <i class="user icon"></i>
-                                    <!-- <label class="form-label" for="typeEmailX">Username</label> -->
-                                    <!-- <p>{{form.username}}</p> -->
                                     <input type="text" name='username' class="form-control form-control-lg" value="{{ data.username }}" placeholder="Username">
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
-                                    <!-- <label class="form-label" for="typeEmailX">Email Address</label> -->
-                                    <!-- <p>{{form.email}}</p> -->
                                     <input type="email" id="typeEmailX" name="email" class="form-control form-control-lg" value="{{ data.email }}" placeholder="E-mail address">
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
-                                    <!-- <label class="form-label" for="typeEmailX">Password</label> -->
-                                    <!-- <p>{{form.password1}}</p> -->
                                     <input type="password" name="password1" class="form-control form-control-lg" value="{{ data.password1 }}" placeholder="Password">
                                 </div>
 
                                 <div class="form-outline form-white mb-4">
-                                    <!-- <label class="form-label" for="typeEmailX">Confirm Password</label> -->
-                                    <!-- <p>{{form.password2}}</p> -->
                                     <input type="password" name="password2" class="form-control form-control-lg", value="{{ data.password2 }}" placeholder="Confirm Password    ">
                                 </div>
                                 <button type="submit" class="btn btn-outline-light btn-lg px-5">Sign Up</button>
                             </form>
                         </div>
-          
-          
-                        <!-- <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button> -->
-          
+
                         <div class="d-flex justify-content-center text-center mt-4 pt-1">
                           <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
                           <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
@@ -90,5 +75,4 @@
               </div>
             </div>
           </section>
-    </body>
 {% endblock %}
