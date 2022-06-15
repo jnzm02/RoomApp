@@ -11,6 +11,9 @@ class Room(models.Model):
     is_private = models.BooleanField(default=False)
     password = models.CharField(max_length=32, blank=True)
     number_of_users = models.IntegerField(default=0, validators=[MaxValueValidator(800000000), MinValueValidator(0)])
+    # TODO: add image for Room with default value: Applogo
+
+    # TODO: add description for Room with blank value {True}
 
     class Meta:
         verbose_name = "Room"
