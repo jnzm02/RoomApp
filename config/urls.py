@@ -29,5 +29,5 @@ urlpatterns = [
 ]
 
 # see the tutorial on https://youtu.be/xSUm6iMtREA?t=2690
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

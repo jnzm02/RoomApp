@@ -15,6 +15,9 @@ class Room(models.Model):
 
     # TODO: add description for Room with blank value {True}
 
+    # TODO: request to join room from Room creator via email message and the website itself
+    # if request sent then, the user can not ask for another request because user was refused or still in waiting list
+
     class Meta:
         verbose_name = "Room"
         verbose_name_plural = "Rooms"

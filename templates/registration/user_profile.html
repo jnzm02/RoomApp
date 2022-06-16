@@ -19,8 +19,12 @@
     <div class="container d-flex justify-content-center">
         <div class="card p-3 py-4">
             <div class="text-center">
-
-                <img src="{% static 'images/blank-profile-picture.png' %}" width="100" class="rounded-circle">
+{#                {% if user.profile_image %}#}
+{#                    <h1 style="color:black">YES</h1>#}
+{#                {% endif %}#}
+                <img src="{% static 'images/blank.jpg' %}" alt="" width="100" class="rounded-circle">
+                <img src="{{ user.profile_image.url }}" alt="" width="100" class="rounded-circle" style="background-color:black">
+{#                <img src="{% static 'images/blank-profile-picture.png' %}" width="100" class="rounded-circle">#}
                 <h3 class="mt-2" style="color:black">{{ user.username }}</h3>
                 <span class="mt-1 clearfix" style="color:black">{{ user.email }}</span>
 
@@ -52,8 +56,6 @@
                   </div>
 
                  <div class="profile mt-5">
-
-{#                 <button class="profile_button px-5">View profile</button>#}
 
             </div>
 
