@@ -22,8 +22,8 @@
 {#                {% if user.profile_image %}#}
 {#                    <h1 style="color:black">YES</h1>#}
 {#                {% endif %}#}
-                <img src="{% static 'images/blank.jpg' %}" alt="" width="100" class="rounded-circle">
-                <img src="{{ user.profile_image.url }}" alt="" width="100" class="rounded-circle" style="background-color:black">
+{#                <img src="{% static 'images/blank.jpg' %}" alt="" width="100" class="rounded-circle">#}
+                <img src="{{ user.profile_image.url }}" alt="" width="100" class="rounded-circle">
 {#                <img src="{% static 'images/blank-profile-picture.png' %}" width="100" class="rounded-circle">#}
                 <h3 class="mt-2" style="color:black">{{ user.username }}</h3>
                 <span class="mt-1 clearfix" style="color:black">{{ user.email }}</span>
@@ -31,16 +31,16 @@
                 <div class="row mt-3 mb-3" style="color:black">
 
                   <div class="col-md-4">
-                    <h5>Projects</h5>
-                    <span class="num">10</span>
+                    <h5>Rooms</h5>
+                    <span class="num">16</span>
                   </div>
                   <div class="col-md-4">
-                  <h5>Projects</h5>
-                    <span class="num">10</span>
+                  <h5>Followers</h5>
+                    <span class="num">153</span>
                   </div>
                   <div class="col-md-4">
-                  <h5>Projects</h5>
-                    <span class="num">10</span>
+                  <h5>Follows</h5>
+                    <span class="num">78</span>
                   </div>
                 </div>
 
