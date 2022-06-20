@@ -15,4 +15,5 @@ urlpatterns = [
 
     # SpecialUser Profile
     path('profile/<str:username>/', views.get_user_profile, name='user_profile'),
+    # path('profile/<str:username>/edit', views.edit_profile, name='edit_profile')
 ]

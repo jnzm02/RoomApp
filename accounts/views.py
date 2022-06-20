@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_str
@@ -8,11 +9,13 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.conf import settings
+from django.http import HttpResponseRedirect
 
 import threading
 
 from .models import SpecialUser
 from .token import generate_token
+# from .forms import UpdateProfileForm, EditProfileForm
 
 from tools.decorators import auth_user_should_not_access
 
@@ -171,6 +174,46 @@ def resend_email(request):
             return render(request, 'registration/resend.html')
 
     return render(request, 'registration/resend.html')
+
+
+# @login_required
+# def update_profile(request):
+#
+#     if request.method == 'POST':
+#         form = UpdateProfile(request.POST, instance=request.user)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Your data updated successfully.')
+#             # return HttpResponseRedirect(reverse('user_profile'))
+#             print('Form is Saved The image should be changed')
+#             return render(request, 'registration/user_profile.html')
+#         else:
+#             form = UpdateProfile(instance=request.user)
+#
+#         return render(request, 'registration/user_profile.html', {'form': form})
+#
+#     return render(request, 'registration/edit_profile.html')
+
+# @login_required
+# def edit_profile(request, username):
+#     # if request.method == "POST":
+#
+#     print("If ka otti!")
+#
+#     if SpecialUser.objects.filter(username=username).exists():
+#         print("ZERO", "Account exists")
+#     # print("FIRST", request.POST.objects.get('username'))
+#     username = request.POST.objects.get('username')
+#     print("SECOND", username)
+#     user_profile = SpecialUser.objects.get(username=username)
+#     print("THIRD", username)
+#     return render(request, 'registration/edit_profile.html', {'user_profile': user_profile})
+#
+#     # else:
+#     print("if ka otpedi")
+#
+#     print (request.method)
+#     return render(request, "registration/edit_profile.html")
 
 
 # https://stackoverflow.com/questions/33724344/how-can-i-display-a-user-profile-using-django
