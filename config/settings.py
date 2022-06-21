@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # local
-    'accounts',  # users
+    'accounts',  # for users
     'rooms',  # for rooms
 ]
 
