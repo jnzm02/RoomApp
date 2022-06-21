@@ -215,6 +215,7 @@ def resend_email(request):
 #     print (request.method)
 #     return render(request, "registration/edit_profile.html")
 
+# TODO: Edit profile page not completed!
 
 # https://stackoverflow.com/questions/33724344/how-can-i-display-a-user-profile-using-django
 def get_user_profile(request, username):
