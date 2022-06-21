@@ -12,11 +12,10 @@ class Room(models.Model):
     password = models.CharField(max_length=32, blank=True)
     number_of_users = models.IntegerField(default=0, validators=[MaxValueValidator(800000000), MinValueValidator(0)])
     room_image = models.ImageField(upload_to='room_images', default="images/icon.jpg", blank=False, null=False)
-    # TODO: add image for Room with default value: Applogo
-
     # TODO: add description for Room with blank value {True}
+    description = models.CharField(max_length=32, blank=True)
 
-    # TODO: request to join room from Room creator via email message and the website itself
+    # TODO: request to join room from Room creator via email message or the website itself using Room password
     # if request sent then, the user can not ask for another request because user was refused or still in waiting list
 
     class Meta:

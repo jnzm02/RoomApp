@@ -29,10 +29,10 @@
 				<table class="table user-list">
 					<thead>
 						<tr>
-							<th><span style="font-weight: bold">User</span></th>
+							<th><span style="font-weight: bold">Room</span></th>
 							<th><span style="font-weight: bold">Created</span></th>
 							<th class="text-center"><span style="font-weight: bold">Status</span></th>
-							<th><span style="font-weight: bold">Email</span></th>
+							<th><span style="font-weight: bold">Description</span></th>
 							<th>&nbsp;</th>
 						</tr>
 					</thead>
@@ -56,7 +56,7 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {{ room.creator.email }}
+                                    {{ room.description }}
                                 </td>
                                 <td style="width: 20%;">
                                     <a href="#" class="table-link">

@@ -15,7 +15,7 @@ class RoomsListView(ListView):
 
 class RoomCreateView(LoginRequiredMixin, CreateView):
     model = Room
-    fields = ('title',)
+    fields = ('title', 'description')
     template_name = 'rooms/room_create.html'
     success_url = reverse_lazy('room_list')
 
@@ -33,7 +33,7 @@ class RoomDetailView(DetailView):
 
 class RoomUpdateView(LoginRequiredMixin, UpdateView):
     model = Room
-    fields = ('title', 'creator')
+    fields = ('title', 'creator', 'description')
     template_name = 'rooms/room_edit.html'
 
     def dispatch(self, request, *args, **kwargs):

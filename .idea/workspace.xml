@@ -2,21 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34686a46-9e11-4915-824f-5dff6d9a6c9d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/RoomApp.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/images/icon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rooms/migrations/0008_room_room_image.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/default.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/rooms/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rooms/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/rooms/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/user_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/user_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/rooms/room_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_create.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/rooms/room_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/rooms/room_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rooms/room_list.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -126,7 +120,7 @@
       <workItem from="1655706954785" duration="3580000" />
       <workItem from="1655786878524" duration="678000" />
       <workItem from="1655787562442" duration="1030000" />
-      <workItem from="1655790964201" duration="7125000" />
+      <workItem from="1655790964201" duration="12604000" />
     </task>
     <servers />
   </component>

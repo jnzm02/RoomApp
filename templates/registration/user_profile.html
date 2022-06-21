@@ -23,7 +23,15 @@
 {#                    <h1 style="color:black">YES</h1>#}
 {#                {% endif %}#}
 {#                <img src="{% static 'images/blank.jpg' %}" alt="" width="100" class="rounded-circle">#}
+
+
+                <div style="text-align: right">
+                    <button class="btn btn-primary">+Follow</button>
+                </div>
                 <img src="{{ user.profile_image.url }}" alt="" width="100" class="rounded-circle">
+{#                <br>#}
+{#                <br>#}
+{#                <button class="btn btn-outline-primary">Message</button>#}
 {#                <img src="{% static 'images/blank-profile-picture.png' %}" width="100" class="rounded-circle">#}
                 <h3 class="mt-2" style="color:black">{{ user.username }}</h3>
                 <span class="mt-1 clearfix" style="color:black">{{ user.email }}</span>
@@ -46,7 +54,8 @@
 
                 <hr class="line">
 
-                <small class="mt-4">I am an android developer working at google Inc at california,USA</small>
+                <small class="mt-4" style="color:black">{{ user.bio }}</small>
+                <small>___________________________________________________________________</small>
                   <div class="social-buttons mt-5">
                    <button class="neo-button"><i class="fa fa-facebook fa-1x"></i> </button>
                    <button class="neo-button"><i class="fa fa-linkedin fa-1x"></i></button>
