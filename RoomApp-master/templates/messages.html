@@ -1,0 +1,19 @@
+{% if messages %}
+
+    {% for message in messages %}
+
+        <div class="ui {{ message.tags }} message">
+
+            {{ message }}
+
+            {% if message.message == "Email is not verified, please check your email inbox" %}
+
+                <a href="{% url 'resend' %}">Resend Email Verification</a>
+
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
+
+{% endif %}
