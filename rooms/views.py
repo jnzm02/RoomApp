@@ -19,8 +19,6 @@ class RoomCreateView(LoginRequiredMixin, CreateView):
     template_name = 'rooms/room_create.html'
     success_url = reverse_lazy('room_list')
 
-    # create room as user who logged in
-    # https://docs.djangoproject.com/en/4.0/topics/class-based-views/generic-editing/
     def form_valid(self, form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
