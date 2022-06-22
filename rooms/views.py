@@ -3,9 +3,11 @@ from django.views.generic import ListView, CreateView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
+from django.shortcuts import render
 
 # from .forms import RoomEnterForm
 from .models import Room
+from accounts.models import SpecialUser
 
 
 class RoomsListView(ListView):
@@ -15,7 +17,7 @@ class RoomsListView(ListView):
 
 class RoomCreateView(LoginRequiredMixin, CreateView):
     model = Room
-    fields = ('title', 'description')
+    fields = ('title', 'description', 'is_private')
     template_name = 'rooms/room_create.html'
     success_url = reverse_lazy('room_list')
 
@@ -28,10 +30,31 @@ class RoomDetailView(DetailView):
     model = Room
     template_name = 'rooms/room_detail.html'
 
+    print('First Step')
+
+    def add_user(self, request):
+        print('Second Step')
+        current_room = self.get_object()
+        user = self.request.user
+        if current_room.room_members.objects.filter(username=user.username).exists():
+            print('pre Third Step')
+            pass
+        current_room.room_members.add(user)
+        print('Third Step')
+
+
+def join_room(request, room_title):
+    if request.method == 'POST':
+        user = SpecialUser.objects.get(username=request.POST['username'])
+        room = Room.objects.get(title=room_title)
+        room.room_members.add(user)
+
+    return render(request, 'rooms/room_detail.html')
+
 
 class RoomUpdateView(LoginRequiredMixin, UpdateView):
     model = Room
-    fields = ('title', 'creator', 'description')
+    fields = ('title', 'creator', 'description', 'is_private')
     template_name = 'rooms/room_edit.html'
 
     def dispatch(self, request, *args, **kwargs):
