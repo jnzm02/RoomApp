@@ -4,6 +4,7 @@ from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 # from .forms import RoomEnterForm
 from .models import Room
@@ -13,6 +14,15 @@ from accounts.models import SpecialUser
 class RoomsListView(ListView):
     model = Room
     template_name = 'rooms/room_list.html'
+
+
+def add_user_to_member_list (user_username, room_title):
+    print("We have entered the add_user function")
+
+    current_user = SpecialUser.objects.get(username=user_username)
+    current_room = Room.objects.get(title=room_title)
+    current_room.room_members.add(current_user)
+    current_room.save()
 
 
 class RoomCreateView(LoginRequiredMixin, CreateView):
@@ -25,14 +35,23 @@ class RoomCreateView(LoginRequiredMixin, CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
+    print('We have entered after the return function!!!')
+
 
 class RoomDetailView(DetailView):
     model = Room
     template_name = 'rooms/room_detail.html'
 
-    print('First Step')
+    # print('First Step')
 
+    # FIXME: Room creator add to the list of the Room members
     def add_user(self, request):
+        if request.method == 'GET':
+            print('request.method is GET')
+        elif request.method == 'POST':
+            print('request.method is POST')
+        else:
+            print('request.method is:', request.method)
         print('Second Step')
         current_room = self.get_object()
         user = self.request.user
@@ -41,6 +60,16 @@ class RoomDetailView(DetailView):
             pass
         current_room.room_members.add(user)
         print('Third Step')
+
+
+def room_detail_view(request, room_name):
+    if request.method == 'POST':
+        print('Entered the function')
+        room = Room.objects.get(room_title=room_name)
+        user = SpecialUser.objects.get(username=request.POST['username'])
+        room.room_members.add(user)
+
+    return render(request, 'rooms/room_detail.html')
 
 
 def join_room(request, room_title):
