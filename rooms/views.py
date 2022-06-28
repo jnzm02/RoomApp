@@ -16,15 +16,6 @@ class RoomsListView(ListView):
     template_name = 'rooms/room_list.html'
 
 
-def add_user_to_member_list (user_username, room_title):
-    print("We have entered the add_user function")
-
-    current_user = SpecialUser.objects.get(username=user_username)
-    current_room = Room.objects.get(title=room_title)
-    current_room.room_members.add(current_user)
-    current_room.save()
-
-
 class RoomCreateView(LoginRequiredMixin, CreateView):
     model = Room
     fields = ('title', 'description', 'is_private')
@@ -35,50 +26,10 @@ class RoomCreateView(LoginRequiredMixin, CreateView):
         form.instance.creator = self.request.user
         return super().form_valid(form)
 
-    print('We have entered after the return function!!!')
-
 
 class RoomDetailView(DetailView):
     model = Room
     template_name = 'rooms/room_detail.html'
-
-    # print('First Step')
-
-    # FIXME: Room creator add to the list of the Room members
-    def add_user(self, request):
-        if request.method == 'GET':
-            print('request.method is GET')
-        elif request.method == 'POST':
-            print('request.method is POST')
-        else:
-            print('request.method is:', request.method)
-        print('Second Step')
-        current_room = self.get_object()
-        user = self.request.user
-        if current_room.room_members.objects.filter(username=user.username).exists():
-            print('pre Third Step')
-            pass
-        current_room.room_members.add(user)
-        print('Third Step')
-
-
-def room_detail_view(request, room_name):
-    if request.method == 'POST':
-        print('Entered the function')
-        room = Room.objects.get(room_title=room_name)
-        user = SpecialUser.objects.get(username=request.POST['username'])
-        room.room_members.add(user)
-
-    return render(request, 'rooms/room_detail.html')
-
-
-def join_room(request, room_title):
-    if request.method == 'POST':
-        user = SpecialUser.objects.get(username=request.POST['username'])
-        room = Room.objects.get(title=room_title)
-        room.room_members.add(user)
-
-    return render(request, 'rooms/room_detail.html')
 
 
 class RoomUpdateView(LoginRequiredMixin, UpdateView):

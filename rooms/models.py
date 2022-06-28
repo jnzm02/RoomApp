@@ -24,19 +24,9 @@ class Room(models.Model):
     class Meta:
         verbose_name = "Room"
         verbose_name_plural = "Rooms"
-        # db_table = "Rooms"
 
     def __str__(self):
         return self.title
-
-    print("Model First Step")
-
-    def add_creator_to_the_room_members(self):
-        print("Model Second Step")
-        if not self.room_members.all():
-            self.room_members.add(self.creator)
-            print("Model Third Step")
-        print("Model Fourth Step")
 
     def get_absolute_url(self):
         return reverse('room_detail', args=[str(self.id)])
