@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, View
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
@@ -27,9 +27,19 @@ class RoomCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class RoomDetailView(DetailView):
+class RoomDetailView(LoginRequiredMixin, DetailView):
     model = Room
     template_name = 'rooms/room_detail.html'
+
+
+# TODO: write classes in functions
+def detail_view(request, room_title):
+    current_user = request.user
+    current_room = Room.objects.get(title=room_title)
+    if not current_room.room_members.filter(username=current_user.username).exists():
+        current_room.room_members.add(current_user)
+
+    return render(request, 'rooms/room_detail.html', {'room': current_room})
 
 
 class RoomUpdateView(LoginRequiredMixin, UpdateView):

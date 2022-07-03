@@ -220,8 +220,4 @@ def resend_email(request):
 # https://stackoverflow.com/questions/33724344/how-can-i-display-a-user-profile-using-django
 def get_user_profile(request, username):
     user = SpecialUser.objects.get(username=username)
-    if user.profile_image:
-        print(user.profile_image)
-    else:
-        print('Nizami', 'we could not find image for', user)
     return render(request, 'registration/user_profile.html', {"user": user})
