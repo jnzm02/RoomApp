@@ -15,6 +15,12 @@ class RoomsListView(ListView):
     model = Room
     template_name = 'rooms/room_list.html'
 
+    # def get_queryset(self):
+    #     if self.request.user.is_authenticated:
+    #         return super().get_queryset()
+    #     else:
+    #         return
+
 
 class RoomCreateView(LoginRequiredMixin, CreateView):
     model = Room
