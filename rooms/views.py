@@ -1,101 +1,85 @@
+import http.client
+
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, View
 from django.views.generic.edit import UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import render
+from django import forms
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-# from .forms import RoomEnterForm
+from django.contrib import messages
+from django.forms import ModelForm
+from .models import Room
+from django import forms
+from accounts.models import SpecialUser
+from django.shortcuts import get_object_or_404, redirect, render
+from .forms import RoomCreateForm, RoomUpdateForm
 from .models import Room
 from accounts.models import SpecialUser
 
 
-class RoomsListView(ListView):
-    model = Room
-    template_name = 'rooms/room_list.html'
-
-    # def get_queryset(self):
-    #     if self.request.user.is_authenticated:
-    #         return super().get_queryset()
-    #     else:
-    #         return
+def room_list_view(request):
+    rooms = Room.objects.all()
+    context = {'rooms': rooms}
+    return render(request, 'rooms/room_list.html', context)
 
 
-class RoomCreateView(LoginRequiredMixin, CreateView):
-    model = Room
-    fields = ('title', 'description', 'is_private')
-    template_name = 'rooms/room_create.html'
-    success_url = reverse_lazy('room_list')
-
-    def form_valid(self, form):
-        form.instance.creator = self.request.user
-        return super().form_valid(form)
-
-
-class RoomDetailView(LoginRequiredMixin, DetailView):
-    model = Room
-    template_name = 'rooms/room_detail.html'
-
-
-# TODO: write classes in functions
-def detail_view(request, room_title):
-    current_user = request.user
-    current_room = Room.objects.get(title=room_title)
-    if not current_room.room_members.filter(username=current_user.username).exists():
-        current_room.room_members.add(current_user)
-
-    return render(request, 'rooms/room_detail.html', {'room': current_room})
-
-
-class RoomUpdateView(LoginRequiredMixin, UpdateView):
-    model = Room
-    fields = ('title', 'creator', 'description', 'is_private')
-    template_name = 'rooms/room_edit.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        # it checks if the requesting user is creator of the current Room or superuser
-        # in case if he is creator or superuser it allows user to change the Room
-
-        """https://stackoverflow.com/questions/15424658/how-to-restrict-access-to-certain-user-to-an-updateview"""
-        current_room = self.get_object()
-        if current_room.creator == self.request.user or self.request.user.is_superuser:
-            return super(UpdateView, self).dispatch(request, *args, **kwargs)
+def room_create_view(request):
+    form = RoomCreateForm
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        if Room.objects.filter(title=title).exists():
+            messages.add_message(request, messages.ERROR,
+                                 "Room with this title already exists, please choose another title")
+            return render(request, 'rooms/room_create.html', {'messages': [messages]})
         else:
-            raise Http404("You are not allowed to edit this Room")
+            Room.objects.create(
+                creator=request.user,
+                title=request.POST.get('title'),
+                description=request.POST.get('description'),
+            )
+            return redirect('room_list')
 
-    # TODO: Need to add password field for updating(highly recommended)
-
-
-class RoomDeleteView(LoginRequiredMixin, DeleteView):
-    model = Room
-    template_name = 'rooms/room_delete.html'
-    success_url = reverse_lazy('room_list')
-
-    def dispatch(self, request, *args, **kwargs):
-        # it checks if the requesting user is creator of the current Room or superuser
-        # in case if he is creator or superuser it allows user to delete the Room
-
-        current_room = self.get_object()
-        if current_room.creator == self.request.user or self.request.user.is_superuser:
-            return super(DeleteView, self).dispatch(request, *args, **kwargs)
-        else:
-            raise Http404("You are not allowed to delete this Room")
+    context = {'form': form}
+    return render(request, 'rooms/room_create.html', context)
 
 
-class RoomEnterView(LoginRequiredMixin, UpdateView):
-    model = Room
-    fields = ('entered_password',)
-    template_name = 'rooms/room_enter.html'
+def room_detail_view(request, title):
+    room = Room.objects.get(title=title)
+    context = {'room': room}
+    return render(request, 'rooms/room_detail.html', context)
 
-    # needs to enter only members of the room who entered password correctly (still not finished) one of the answers
-    # could be to add 2 password fields for Room model and one of them would be the password creator entered,
-    # and another for entering for user (if matches he will have access to the room) (not sure if that works but hope)
 
-    # if Room.password_entered == Room.room_password:
-    #     success_url = reverse_lazy('room_details')
-    # else:
-    #     success_url = reverse_lazy('room_list')
+def room_update_view(request, title):
+    room = Room.objects.get(title=title)
+    form = RoomUpdateForm(instance=room)
 
-    # We will change the password entered to '123' which is not acceptable for the password of the room in order to
-    # change the password each time the user enters some password password_entered = '123'
+    if request.user != room.creator and not request.user.is_superuser:
+        return HttpResponse("You are not allowed to edit this room!")
+
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        if Room.objects.filter(title=title).exists():
+            messages.add_message(request, messages.ERROR,
+                                 "The room with this title already exists, please choose another one")
+            return render(request, 'rooms/room_edit.html', {'messages': [messages]})
+        room.title = request.POST.get('title')
+        room.description = request.POST.get('description')
+        room.save()
+        return redirect('room_detail', room.title)
+
+    context = {'form': form, 'room': room}
+    return render(request, 'rooms/room_edit.html', context)
+
+
+def room_delete_view(request, title):
+    room = Room.objects.get(title=title)
+    if request.user != room.creator and not request.user.is_superuser:
+        return HttpResponse("You are not allowed to delete this Room")
+    if request.method == 'POST':
+        room.delete()
+        return redirect('room_list')
+    return render(request, 'rooms/room_delete.html', {'room': room})

@@ -52,8 +52,11 @@ INSTALLED_APPS = [
     'accounts',  # for users
     'rooms',  # for rooms
 
-    # channels
+    # additional
     'channels',
+    'rest_framework',
+    # 'allauth',
+    # 'allauth.account'
 ]
 
 AUTH_USER_MODEL = 'accounts.SpecialUser'
@@ -146,6 +149,15 @@ ASGI_APPLICATION = "config.asgi.application"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+
+# SITE_ID = 1
+#
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# )
+#
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATIC_URL = '/static/'
 

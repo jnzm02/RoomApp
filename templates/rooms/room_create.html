@@ -22,20 +22,20 @@
                     <div class="form-outline form-white mb-4">
                         <form method="post" class="">
                             {% csrf_token %}
-                            <div class="form-outline form-white mb-4">
-                                <input type="text" class="form-control form-control-lg" name="title" value="{{ data.title }}" placeholder="Title" />
-                            </div>
+                            <label>
+                                <input type="text" name="title" class="form-control form-control-lg" value="{{ form.title }}" placeholder="Title">
+                            </label>
 
                             <div class="form-outline form-white mb-4">
-                                    <textarea class="form-control form-control-lg" name="description" value="{{ data.description }}" rows="4" cols="50" placeholder="Description"></textarea>
+                                    <textarea class="form-control form-control-lg" name="description" rows="4" cols="50" placeholder="Description" value="{{ form.description }}">Enter a description</textarea>
 {#                                <textarea class="form-control form-control-lg" name="description" value="{{ data.description }}" rows="4" cols="50">{{ data.description }}</textarea>#}
                             </div>
 
-                                Do you want the Room to be Private
-                            <label class="switch">
-                              <input type="checkbox" value="{{ data.is_private }}">
-                              <span class="slider round"></span>
-                            </label>
+{#                                Do you want the Room to be Private#}
+{#                            <label class="switch">#}
+{#                              <input type="radio" value="{{ data.is_private }}">#}
+{#                              <span class="slider round"></span>#}
+{#                            </label>#}
 
 
                             <br>

@@ -6,7 +6,7 @@ from accounts.models import SpecialUser
 
 
 class Room(models.Model):
-    title = models.CharField(max_length=32)
+    title = models.CharField(max_length=32, unique=True)
     date = models.DateField(auto_now_add=True)
     creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='room_creator')
     is_private = models.BooleanField(default=False)

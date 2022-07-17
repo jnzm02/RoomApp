@@ -4,6 +4,15 @@
 
 {% block content %}
     <h1>Rooms</h1>
+
+    <div style="text-align: right">
+        <div>
+            <h3>Browse Rooms</h3>
+        </div>
+        <div>
+            Search Bar
+        </div>
+    </div>
 {#    <div class="rooms-list">#}
 {#        <div class="room room-list-name">#}
 {#            <span class='list'><b>Room Name</b></span>#}
@@ -37,12 +46,12 @@
 						</tr>
 					</thead>
 					<tbody>
-                        {% for room in object_list %}
+                        {% for room in rooms %}
                             <tr>
                                 <td>
     {#								<img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">#}
                                     <img src="{{ room.room_image.url }}" alt="" class="rounded-circle">
-                                    <a href="{% url 'room_detail' room.pk %}" class="user-link">{{ room.title }}</a>
+                                    <a href="{% url 'room_detail' room.title %}" class="user-link">{{ room.title }}</a>
                                     <span class="user-subhead">{{ room.creator }}</span>
                                 </td>
                                 <td>
@@ -66,13 +75,17 @@
 {#                                            <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>#}
 {#                                        </span>#}
 {#                                    </a>#}
-                                    <a href="{% url 'room_detail' room.pk %}" class="table-link">
+                                    <a href="{% url 'room_detail' room.title %}" class="table-link">
                                         <span class="btn btn-primary btn-rounded btn-outline" style="border-radius: 20px">
 
                                             +Join
 
                                         </span>
                                     </a>
+                                </td>
+
+                                <td>
+                                    {{ room.room_members }}
                                 </td>
                             </tr>
                         {% endfor %}
