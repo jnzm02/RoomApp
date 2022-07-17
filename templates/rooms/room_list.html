@@ -42,7 +42,8 @@
 							<th><span style="font-weight: bold">Created</span></th>
 							<th class="text-center"><span style="font-weight: bold">Status</span></th>
 							<th class="text-center"><span style="font-weight: bold">Description</span></th>
-							<th>&nbsp;</th>
+							<th class="text-center"><span style="font-weight: bold">Users</span></th>
+                            <th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -67,6 +68,9 @@
                                 <td class="text-center">
                                     {{ room.description }}
                                 </td>
+                                <td>
+                                    {{ room.number_of_users }}
+                                </td>
                                 <td style="width: 20%; text-align: right">
 {##}
 {#                                    <a href="#" class="table-link">#}
@@ -84,9 +88,6 @@
                                     </a>
                                 </td>
 
-                                <td>
-                                    {{ room.room_members }}
-                                </td>
                             </tr>
                         {% endfor %}
 					</tbody>

@@ -41,6 +41,10 @@ def room_create_view(request):
                 title=request.POST.get('title'),
                 description=request.POST.get('description'),
             )
+            room = Room.objects.get(title=title)
+            room.room_members.add(request.user)
+            room.number_of_users = 1
+            room.save()
             return redirect('room_list')
 
     context = {'form': form}
@@ -49,6 +53,11 @@ def room_create_view(request):
 
 def room_detail_view(request, title):
     room = Room.objects.get(title=title)
+    user = request.user
+    if not room.room_members.filter(username=user.username).exists():
+        room.room_members.add(user)
+        room.number_of_users = room.room_members.count()
+        room.save()
     context = {'room': room}
     return render(request, 'rooms/room_detail.html', context)
 
