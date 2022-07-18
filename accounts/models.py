@@ -6,9 +6,6 @@ from django.core.files import File
 class SpecialUser(AbstractUser):
     is_email_verified = models.BooleanField(default=False)
 
-    # need to explore models to connect the user with rooms available for him/her
-    # rooms_available
-
     # TODO: check if some user is_online or not
     # see the link https://stackoverflow.com/questions/29663777/how-to-check-whether-a-user-is-online-in-django-template
     # in the future it is expected that we will have profiles for users (with username, email, bios, and photos)
@@ -20,7 +17,8 @@ class SpecialUser(AbstractUser):
     # FIXME: cannot assign default value as blank.jpg
     profile_image = models.ImageField(upload_to='profile_images',
                                       default='images/blank.jpg', blank=False, null=False)
-
+    rooms = models.ManyToManyField('rooms.Room', blank=True)
+    number_of_rooms = models.IntegerField(default=0)
     # upload_should to be integrated to media folder 'profile images'
     # see the video 'https://www.youtube.com/watch?v=xSUm6iMtREA'
 

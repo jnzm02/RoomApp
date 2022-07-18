@@ -74,13 +74,29 @@
                                     {{ room.number_of_users }}
                                 </td>
                                 <td style="width: 20%; text-align: right">
-{##}
-{#                                    <a href="#" class="table-link">#}
-{#                                        <span class="fa-stack">#}
-{#                                            <i class="fa fa-square fa-stack-2x"></i>#}
-{#                                            <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>#}
-{#                                        </span>#}
-{#                                    </a>#}
+{##}                                {% if room.creator == user %}
+                                    <a href="{% url 'room_edit' room.title %}" class="table-link">
+                                        <span class="fa-stack">
+                                            <i class="fa fa-square fa-stack-2x"></i>
+                                            <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                    <a href="{% url 'room_delete' room.title %}" class="table-link">
+                                        <span class="fa-stack">
+                                            <i class="fa fa-square fa-stack-2x"></i>
+                                            <i class="fa fa-trash fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                    {% endif %}
+                                    {% if room in user.rooms.all %}
+                                    <a href="{% url 'room_detail' room.title %}" class="table-link">
+                                        <span class="btn btn-primary btn-rounded btn-outline" style="border-radius: 20px">
+
+                                            >Enter
+
+                                        </span>
+                                    </a>
+                                    {% else %}
                                     <a href="{% url 'room_detail' room.title %}" class="table-link">
                                         <span class="btn btn-primary btn-rounded btn-outline" style="border-radius: 20px">
 
@@ -88,6 +104,7 @@
 
                                         </span>
                                     </a>
+                                    {% endif %}
                                 </td>
 
                             </tr>

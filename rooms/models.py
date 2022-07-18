@@ -2,13 +2,13 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.core.validators import MaxValueValidator, MinValueValidator
-from accounts.models import SpecialUser
+# from accounts.models import SpecialUser
 
 
 class Room(models.Model):
     title = models.CharField(max_length=32, unique=True)
     date = models.DateField(auto_now_add=True)
-    creator = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='room_creator')
+    creator = models.ForeignKey('accounts.SpecialUser', on_delete=models.CASCADE, related_name='room_creator')
     is_private = models.BooleanField(default=False)
     password = models.CharField(max_length=32, blank=True)
     number_of_users = models.IntegerField(default=0, validators=[MaxValueValidator(800000000), MinValueValidator(0)])
@@ -19,7 +19,7 @@ class Room(models.Model):
     # if request sent then, the user can not ask for another request because user was refused or still in waiting list
 
     # TODO: USERS LIST WHO ARE ALLOWED TO ENTER THE ROOM
-    room_members = models.ManyToManyField(SpecialUser, related_name='room_member')
+    room_members = models.ManyToManyField('accounts.SpecialUser', related_name='room_member')
 
     class Meta:
         verbose_name = "Room"

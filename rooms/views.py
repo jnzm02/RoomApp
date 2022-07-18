@@ -29,8 +29,14 @@ def room_list_view(request):
         Q(creator__username__icontains=q) |
         Q(description__icontains=q)
     )
+    user = request.user
 
-    context = {'rooms': rooms}
+    for room in rooms:
+        for member in room.room_members.all():
+            member.number_of_rooms = member.rooms.count()
+            member.save()
+
+    context = {'rooms': rooms, 'user': user}
     return render(request, 'rooms/room_list.html', context)
 
 
@@ -78,7 +84,7 @@ def room_update_view(request, title):
 
     if request.method == 'POST':
         title = request.POST.get('title')
-        if Room.objects.filter(title=title).exists():
+        if Room.objects.filter(title=title).exists() and room.title != title:
             messages.add_message(request, messages.ERROR,
                                  "The room with this title already exists, please choose another one")
             return render(request, 'rooms/room_edit.html', {'messages': [messages]})
