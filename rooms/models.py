@@ -19,7 +19,7 @@ class Room(models.Model):
     # if request sent then, the user can not ask for another request because user was refused or still in waiting list
 
     # TODO: USERS LIST WHO ARE ALLOWED TO ENTER THE ROOM
-    room_members = models.ManyToManyField(SpecialUser, related_name='room_member', default=creator)
+    room_members = models.ManyToManyField(SpecialUser, related_name='room_member')
 
     class Meta:
         verbose_name = "Room"

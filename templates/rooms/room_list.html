@@ -10,7 +10,9 @@
             <h3>Browse Rooms</h3>
         </div>
         <div>
-            Search Bar
+            <form method="GET" action="{% url 'room_list' %}">
+                <input type="text" name="q" placeholder="Search Room..." style="border-radius: 15px; padding: 9px">
+            </form>
         </div>
     </div>
 {#    <div class="rooms-list">#}

@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django import forms
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
 from django.contrib import messages
 from django.forms import ModelForm
 from .models import Room
@@ -22,7 +22,14 @@ from accounts.models import SpecialUser
 
 
 def room_list_view(request):
-    rooms = Room.objects.all()
+    q = request.GET.get('q') if request.GET.get('q') is not None else ''
+
+    rooms = Room.objects.filter(
+        Q(title__icontains=q) |
+        Q(creator__username__icontains=q) |
+        Q(description__icontains=q)
+    )
+
     context = {'rooms': rooms}
     return render(request, 'rooms/room_list.html', context)
 
