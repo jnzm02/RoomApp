@@ -17,5 +17,5 @@ urlpatterns = [
 
     # SpecialUser Profile
     path('profile/<str:username>/', login_required(views.get_user_profile), name='user_profile'),
-    # path('profile/<str:username>/edit', views.edit_profile, name='edit_profile')
+    path('profile/<str:username>/edit', login_required(views.update_profile), name='edit_profile')
 ]

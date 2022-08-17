@@ -30,13 +30,13 @@ def room_list_view(request):
         Q(description__icontains=q)
     )
     user = request.user
-
+    room_number = rooms.count()
     for room in rooms:
         for member in room.room_members.all():
             member.number_of_rooms = member.rooms.count()
             member.save()
 
-    context = {'rooms': rooms, 'user': user}
+    context = {'rooms': rooms, 'user': user, 'room_number': room_number}
     return render(request, 'rooms/room_list.html', context)
 
 

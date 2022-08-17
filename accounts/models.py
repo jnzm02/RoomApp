@@ -13,14 +13,12 @@ class SpecialUser(AbstractUser):
 
     # TODO: bio = models.CharField(max_length=1000)
     bio = models.TextField(blank=True, max_length=1000)
-
-    # FIXME: cannot assign default value as blank.jpg
     profile_image = models.ImageField(upload_to='profile_images',
                                       default='images/blank.jpg', blank=False, null=False)
     rooms = models.ManyToManyField('rooms.Room', blank=True)
     number_of_rooms = models.IntegerField(default=0)
-    # upload_should to be integrated to media folder 'profile images'
-    # see the video 'https://www.youtube.com/watch?v=xSUm6iMtREA'
+    # followers = models.ManyToManyField('self', related_name='follower', blank=True, symmetrical=False)
+    # following = models.ManyToManyField('self', related_name='following', blank=True, symmetrical=False)
 
     def __str__(self):
         return self.username

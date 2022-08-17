@@ -9,13 +9,13 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.conf import settings
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 import threading
 
 from .models import SpecialUser
 from .token import generate_token
-# from .forms import UpdateProfileForm, EditProfileForm
+from .forms import SpecialUserUpdateProfileForm
 
 from tools.decorators import auth_user_should_not_access
 
@@ -174,9 +174,27 @@ def resend_email(request):
     return render(request, 'registration/resend.html')
 
 
-# @login_required
-# def update_profile(request):
-#
+@login_required
+def update_profile(request, username):
+    user = SpecialUser.objects.get(username=username)
+    form = SpecialUserUpdateProfileForm(instance=user)
+
+    if request.user != user and request.user.is_superuser:
+        return HttpResponse("You are not allowed to edit this user")
+
+    if request.method == 'POST':
+        # new_username = request.POST.get('username')
+        # if SpecialUser.objects.filter(username=new_username).exists and new_username != username:
+        #     messages.add_message(request, messages.ERROR, "This username already exists")
+        #     return render(request, 'registration/edit_profile.html', {'messages': [messages]})
+        # user.username = new_username
+        user.bio = request.POST.get('bio')
+        user.profile_image = request.POST.get('profile_image')
+        user.save()
+        return redirect('user_profile', user.username)
+
+    context = {'form': form, 'user': user}
+    return render(request, 'registration/edit_profile.html', context)
 #     if request.method == 'POST':
 #         form = UpdateProfile(request.POST, instance=request.user)
 #         if form.is_valid():
@@ -214,6 +232,7 @@ def resend_email(request):
 #     return render(request, "registration/edit_profile.html")
 
 # TODO: Edit profile page not completed!
+
 
 # https://stackoverflow.com/questions/33724344/how-can-i-display-a-user-profile-using-django
 def get_user_profile(request, username):
