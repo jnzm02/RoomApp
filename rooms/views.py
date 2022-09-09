@@ -1,23 +1,9 @@
-import http.client
-
-from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, View
-from django.views.generic.edit import UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, HttpResponse
-from django.shortcuts import render
-from django import forms
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib import messages
-from .models import Room
-from django import forms
-from accounts.models import SpecialUser
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import redirect, render
 from .forms import RoomCreateForm, RoomUpdateForm
 from .models import Room
-from accounts.models import SpecialUser
 
 
 def room_list_view(request):
