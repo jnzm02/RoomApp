@@ -23,11 +23,11 @@
                         <form method="post" class="">
                             {% csrf_token %}
                             <label>
-                                <input type="text" name="title" class="form-control form-control-lg" value="{{ form.title }}" placeholder="Title">
+                                <input type="text" name="title" class="form-control form-control-lg" value="{{ form.title.error }}" placeholder="Title">
                             </label>
 
                             <div class="form-outline form-white mb-4">
-                                    <textarea class="form-control form-control-lg" name="description" rows="4" cols="50" placeholder="Description" value="{{ form.description }}">Enter a description</textarea>
+                                    <textarea class="form-control form-control-lg" name="description" rows="4" cols="50" placeholder="Description" value="{{ form.description.error }}" aria-placeholder="Description"></textarea>
 {#                                <textarea class="form-control form-control-lg" name="description" value="{{ data.description }}" rows="4" cols="50">{{ data.description }}</textarea>#}
                             </div>
 
